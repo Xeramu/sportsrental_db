@@ -3,17 +3,17 @@ require_once 'class/Equipments.php';
 require_once 'class/Members.php';
 require_once 'class/Rentals.php';
 
-// Inisialisasi objek
+// inisialisasi objek class
 $equipment = new Equipments();
 $member = new Members();
 $rental = new Rentals();
 
-// Proses peminjaman alat
+// proses minjem alat dr fungsi rentals
 if (isset($_POST['borrow'])) {
     $rental->borrowEquipment($_POST['equipment_id'], $_POST['member_id']);
 }
 
-// Proses pengembalian alat
+// proses pengembalian alat
 if (isset($_GET['return'])) {
     $rental->returnEquipment($_GET['return']);
 }
@@ -27,26 +27,56 @@ if (isset($_GET['return'])) {
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- header halaman -->
     <?php include 'view/header.php'; ?>
 
     <main>
         <h2>Welcome to Sports Equipment Rental System</h2>
+
+        <!-- navgiasgi antar halaman -->
         <nav>
             <a href="?page=equipments">Equipments</a> |
             <a href="?page=members">Members</a> |
             <a href="?page=rentals">Rentals</a>
         </nav>
+        <hr>
 
         <?php
+        // routing halaman berdasarkan parameter
         if (isset($_GET['page'])) {
             $page = $_GET['page'];
-            if ($page == 'equipments') include 'view/Viewequipments.php';
-            elseif ($page == 'members') include 'view/Viewmembers.php';
-            elseif ($page == 'rentals') include 'view/Viewrentals.php';
+
+            // tampilkan halaman sesuai pilihan menu
+            if ($page == 'equipments') {
+                include 'view/Viewequipments.php';
+            } elseif ($page == 'members') {
+                include 'view/Viewmembers.php';
+            } elseif ($page == 'rentals') {
+                include 'view/Viewrentals.php';
+            } 
+            // rputing CRUD buat member
+            elseif ($page == 'edit_member') {
+                include 'view/edit_member.php';
+            } elseif ($page == 'delete_member') {
+                include 'view/delete_member.php';
+            }
+            // routing CRUD buat equimenpst
+            elseif ($page == 'edit_equipment') {
+                include 'view/edit_equipment.php';
+            } elseif ($page == 'delete_equipment') {
+                include 'view/delete_equipment.php';
+            }
+            // klo parameter engga dikenali
+            else {
+                echo "<p>Halaman tidak ditemukan.</p>";
+            }
+        } else {
+            echo "<p>Silakan pilih menu di atas untuk mulai.</p>";
         }
         ?>
     </main>
 
+    <!-- footer -->
     <?php include 'view/footer.php'; ?>
 </body>
 </html>
