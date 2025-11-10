@@ -1,7 +1,7 @@
 <?php
-require_once 'class/Equipments.php';
-require_once 'class/Members.php';
-require_once 'class/Rentals.php';
+require_once 'class/equipments.php';
+require_once 'class/members.php';
+require_once 'class/rentals.php';
 
 // inisialisasi objek class
 $equipment = new Equipments();
@@ -65,6 +65,12 @@ if (isset($_GET['return'])) {
                 include 'view/edit_equipment.php';
             } elseif ($page == 'delete_equipment') {
                 include 'view/delete_equipment.php';
+            }
+            // routing CRUD buat rental
+            elseif ($page == 'edit_rental') {
+                include 'view/edit_rental.php';
+            } elseif ($page == 'delete_rental') {
+                include 'view/delete_rental.php';
             }
             // klo parameter engga dikenali
             else {

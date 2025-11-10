@@ -17,8 +17,10 @@
         <td><?= $r['return_date'] ?? 'Not Returned' ?></td>
         <td>
             <?php if (!$r['return_date']): ?>
-                <a href="?page=rentals&return=<?= $r['id'] ?>">Return</a>
+                <a href="?page=rentals&return=<?= $r['id'] ?>">Return</a> |
             <?php endif; ?>
+            <a href="?page=edit_rental&id=<?= $r['id'] ?>">Edit</a> |
+            <a href="?page=delete_rental&id=<?= $r['id'] ?>" onclick="return confirm('Yakin mau hapus rental ini?')">Delete</a>
         </td>
     </tr>
     <?php endforeach; ?>
