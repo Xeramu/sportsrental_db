@@ -1,4 +1,5 @@
 <h3>Rental List</h3>
+<!-- nampilin tabel rental -->
 <table border="1">
     <tr>
         <th>ID</th>
@@ -8,24 +9,38 @@
         <th>Return Date</th>
         <th>Action</th>
     </tr>
-    <?php foreach ($rental->getAllRentals() as $r): ?>
-    <tr>
-        <td><?= $r['id'] ?></td>
-        <td><?= $r['equipment_name'] ?></td>
-        <td><?= $r['member_name'] ?></td>
-        <td><?= $r['rent_date'] ?></td>
-        <td><?= $r['return_date'] ?? 'Not Returned' ?></td>
-        <td>
-            <?php if (!$r['return_date']): ?>
-                <a href="?page=rentals&return=<?= $r['id'] ?>">Return</a> |
-            <?php endif; ?>
-            <a href="?page=edit_rental&id=<?= $r['id'] ?>">Edit</a> |
-            <a href="?page=delete_rental&id=<?= $r['id'] ?>" onclick="return confirm('Yakin mau hapus rental ini?')">Delete</a>
-        </td>
-    </tr>
-    <?php endforeach; ?>
+
+    <?php 
+    // ngambil smua tabel rental
+    $rentals = $rental->getAllRentals();
+    // klo ada data
+    if (!empty($rentals)): ?>
+        <?php foreach ($rentals as $r): ?>
+        <tr>
+            <td><?= htmlspecialchars($r['id']) ?></td>
+            <td><?= htmlspecialchars($r['equipment_name']) ?></td>
+            <td><?= htmlspecialchars($r['member_name']) ?></td>
+            <td><?= htmlspecialchars($r['rent_date']) ?></td>
+            <td><?= htmlspecialchars($r['return_date'] ?? 'Not Returned') ?></td>
+            <td>
+                <!-- kepage return, edit, sama delete rwntal -->
+                <?php if (!$r['return_date']): ?>
+                    <a href="?page=rentals&return=<?= $r['id'] ?>">Return</a> |
+                <?php endif; ?>
+                <a href="?page=edit_rental&id=<?= $r['id'] ?>">Edit</a> |
+                <a href="?page=delete_rental&id=<?= $r['id'] ?>" onclick="return confirm('Yakin mau hapus rental ini?')">Delete</a>
+            </td>
+        </tr>
+        <?php endforeach; ?>
+    <?php else: ?>
+        <!-- klo blm ada data -->
+        <tr>
+            <td colspan="6" align="center">Belum ada data rental.</td>
+        </tr>
+    <?php endif; ?>
 </table>
 
+<!-- buat minjem alat -->
 <h3>Borrow Equipment</h3>
 <form method="POST">
     <label>Equipment:</label>

@@ -8,9 +8,9 @@ $equipment = new Equipments();
 $member = new Members();
 $rental = new Rentals();
 
-// proses minjem alat dr fungsi rentals
+// proses minjem alat dr fungsi rentals alias create
 if (isset($_POST['borrow'])) {
-    $rental->borrowEquipment($_POST['equipment_id'], $_POST['member_id']);
+    $rental->createRental($_POST['equipment_id'], $_POST['member_id']); 
 }
 
 // proses pengembalian alat
